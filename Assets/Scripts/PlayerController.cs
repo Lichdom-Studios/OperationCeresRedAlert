@@ -8,11 +8,24 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        GameManager.OnGameStateChange += CheckGameState;
     }
-
-    void Update()
+    void CheckGameState(GameState state)
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, movementSpeed * Time.deltaTime);
+
+        if (state == GameState.PLAY)
+            StartCoroutine(MoveForward());
+        if (state == GameState.GAMEOVER)
+            GameManager.OnGameStateChange -= CheckGameState;
+    }
+    IEnumerator MoveForward()
+    {
+        while (GameManager.instance.GetGameState() == GameState.PLAY)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, movementSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        yield break;
     }
 }
