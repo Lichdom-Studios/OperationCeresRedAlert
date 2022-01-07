@@ -11,12 +11,19 @@ public class Player : MonoBehaviour
 
     [SerializeField] DOTweenAnimation cameraAnimation;
 
+    [SerializeField] AudioSource audio1, audio2;
+    [SerializeField] AudioClip idleClip, engineClip, hitClip, gameoverClip;
+
     int score;
     GameUI gameUI;
-    
-    void Start()
+
+    private void Awake()
     {
         GameManager.OnGameStateChange += CheckGameState;
+    }
+
+    void Start()
+    {
         gameUI = GameUI.instance;
         delay = new WaitForSeconds(scoreTick);
 
@@ -26,14 +33,36 @@ public class Player : MonoBehaviour
 
     void CheckGameState(GameState state)
     {
-        if(state == GameState.PLAY)
+        switch(state)
         {
-            StartCoroutine(CalculateScore());
-        }
-        if (state == GameState.GAMEOVER)
-        {
-            SaveHighscore();
-            GameManager.OnGameStateChange -= CheckGameState;
+            case GameState.SETUP:
+                break;
+            case GameState.READY:
+                break;
+            case GameState.COUNTDOWN:
+                if (idleClip && audio1)
+                {
+                    audio1.clip = idleClip;
+                    audio1.Play();
+                }
+                break;
+            case GameState.PLAY:
+                if(engineClip && audio1)
+                {
+                    audio1.clip = engineClip;
+                    audio1.Play();
+                }
+                StartCoroutine(CalculateScore());
+                break;
+            case GameState.GAMEOVER:
+                if (idleClip && audio1)
+                {
+                    audio1.clip = idleClip;
+                    audio1.Play();
+                }
+                SaveHighscore();
+                GameManager.OnGameStateChange -= CheckGameState;
+                break;
         }
     }
 
@@ -67,10 +96,27 @@ public class Player : MonoBehaviour
         {
             cameraAnimation.DORestart();
 
+            if(hitClip && audio2)
+            {
+                float randomPitch = Random.Range(-0.25f, 0f);
+
+                audio2.pitch = 1 + randomPitch;
+                audio2.clip = hitClip;
+                audio2.Play();
+            }
+
             --lives;
 
             if (lives <= 0)
+            {
+                if (hitClip && audio2)
+                {
+                    audio2.clip = gameoverClip;
+                    audio2.Play();
+                }
+
                 GameManager.instance.UpdateGameState(GameState.GAMEOVER);
+            }
         }
     }
 }

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1332089969090595624}
   - component: {fileID: 1486938197721155888}
   - component: {fileID: 2527869749990223277}
-  - component: {fileID: 818642074562588616}
-  - component: {fileID: 8561833276685995921}
-  - component: {fileID: -6067616642511721253}
+  - component: {fileID: 889689484566247317}
+  - component: {fileID: -617657155372563753}
+  - component: {fileID: 8258264141455087893}
   m_Layer: 0
   m_Name: Rock11
   m_TagString: WholeAsteroid
@@ -109,13 +109,42 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078176198351759274}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6971144018687242118, guid: ba8ad55c52432c9458973a60328b3451, type: 3}
---- !u!54 &818642074562588616
+--- !u!114 &889689484566247317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078176198351759274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22867890cca29c94fabdf8ad815daa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 2
+  hide: 1
+--- !u!114 &-617657155372563753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078176198351759274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6906f99b13cb24294f473815193838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.15
+  rotationSpeeds: 0.25
+  fracture: {fileID: 0}
+--- !u!54 &8258264141455087893
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,32 +160,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8561833276685995921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078176198351759274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b6906f99b13cb24294f473815193838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.25
-  rotationSpeeds: 0.25
-  fracture: {fileID: 0}
---- !u!114 &-6067616642511721253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078176198351759274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22867890cca29c94fabdf8ad815daa07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 2
-  hide: 1
