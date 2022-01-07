@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2441583916494810857}
   - component: {fileID: 7317728986581835491}
   - component: {fileID: 7967100034057749305}
-  - component: {fileID: -583889419802275795}
-  - component: {fileID: -4175740411502364506}
-  - component: {fileID: 8873604416897562621}
+  - component: {fileID: 8806542915089592204}
+  - component: {fileID: 7866092667257880562}
+  - component: {fileID: -3047868941515687356}
   m_Layer: 0
   m_Name: Rock4
   m_TagString: WholeAsteroid
@@ -115,36 +115,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7029217267309058765, guid: ba8ad55c52432c9458973a60328b3451, type: 3}
---- !u!114 &-583889419802275795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5088785953716078452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22867890cca29c94fabdf8ad815daa07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 2
-  hide: 1
---- !u!114 &-4175740411502364506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5088785953716078452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b6906f99b13cb24294f473815193838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.15
-  rotationSpeeds: 0.25
-  fracture: {fileID: 0}
---- !u!54 &8873604416897562621
+--- !u!54 &8806542915089592204
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,3 +131,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7866092667257880562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5088785953716078452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6906f99b13cb24294f473815193838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.15
+  rotationSpeeds: 0.25
+  fracture: {fileID: 0}
+--- !u!114 &-3047868941515687356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5088785953716078452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22867890cca29c94fabdf8ad815daa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 2
+  hide: 1
