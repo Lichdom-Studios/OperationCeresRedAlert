@@ -24,7 +24,11 @@ public class VolumeControl : MonoBehaviour
     private void MuteToggleChanged(bool enableSound)
     {
         if (enableSound)
-            slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.maxValue);
+        {
+            float newValue = PlayerPrefs.GetFloat(volumeParameter, slider.maxValue);
+
+            slider.value = newValue == 0f ? 0.25f : newValue;
+        }
         else
             slider.value = slider.minValue;
     }

@@ -9,10 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] float scoreTick = 1f;
     WaitForSeconds delay;
 
+    [SerializeField] Light interiorLight;
+    [SerializeField] float pulseSpeed = 1f;
+    float minIntensity, maxIntensity;
+
     [SerializeField] DOTweenAnimation cameraAnimation;
 
-    [SerializeField] AudioSource audio1, audio2;
-    [SerializeField] AudioClip idleClip, engineClip, hitClip, gameoverClip;
+    [SerializeField] AudioSource audio1, audio2, audio3;
+    [SerializeField] AudioClip idleClip, engineClip, hitClip, sirenClip, gameoverClip;
 
     int score;
     GameUI gameUI;
@@ -29,6 +33,8 @@ public class Player : MonoBehaviour
 
         if (!cameraAnimation)
             cameraAnimation = Camera.main.GetComponent<DOTweenAnimation>();
+
+        minIntensity = interiorLight.intensity;
     }
 
     void CheckGameState(GameState state)
@@ -96,7 +102,7 @@ public class Player : MonoBehaviour
         {
             cameraAnimation.DORestart();
 
-            if(hitClip && audio2)
+            if (hitClip && audio2)
             {
                 float randomPitch = Random.Range(-0.25f, 0f);
 
@@ -107,16 +113,58 @@ public class Player : MonoBehaviour
 
             --lives;
 
+            if (lives == 2)
+            {
+                maxIntensity = 1f;
+                interiorLight.intensity = maxIntensity;
+                StartCoroutine(WarningLight());
+                if (!audio3.clip)
+                    audio3.clip = sirenClip;
+                audio3.Play();
+            }
+            else if (lives == 1)
+            {
+                maxIntensity = 3f;
+                interiorLight.intensity = maxIntensity;
+                pulseSpeed *= 1.5f;
+            }
+
             if (lives <= 0)
             {
                 if (hitClip && audio2)
                 {
                     audio2.clip = gameoverClip;
-                    audio2.Play();
+                    audio2.Play();                    
                 }
+
+                maxIntensity = 5f;
+                interiorLight.intensity = maxIntensity;
+                pulseSpeed *= 2f;
 
                 GameManager.instance.UpdateGameState(GameState.GAMEOVER);
             }
         }
+        else
+            Destroy(other.gameObject);
+    }
+
+    IEnumerator WarningLight()
+    {
+        float targetIntensity = minIntensity;
+
+        while (isActiveAndEnabled)
+        {
+            interiorLight.intensity = Mathf.Lerp(interiorLight.intensity, targetIntensity, Time.deltaTime * pulseSpeed);
+
+            if (interiorLight.intensity < minIntensity + 0.01f)
+                targetIntensity = maxIntensity;
+
+            if (interiorLight.intensity > maxIntensity - 0.01f)
+                targetIntensity = minIntensity;
+
+            yield return null;
+        }
+
+        yield break;
     }
 }

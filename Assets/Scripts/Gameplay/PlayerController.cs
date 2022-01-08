@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 targetPosition = Vector3.MoveTowards(transform.position, transform.position + transform.forward, movementSpeed * Time.deltaTime);
 
-            float clampedX = Mathf.Clamp(targetPosition.x, -4, 4);
-            float clampedY = Mathf.Clamp(targetPosition.y, -4, 4);
+            float clampedX = Mathf.Clamp(targetPosition.x, -7, 7);
+            float clampedY = Mathf.Clamp(targetPosition.y, -7, 7);
 
             Vector3 newPosition = new Vector3(clampedX, clampedY, targetPosition.z);
 

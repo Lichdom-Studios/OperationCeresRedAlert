@@ -6,6 +6,7 @@ public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] float spawnRadius = 1.5f;
     [SerializeField] float spawnDistance = 10f;
+    [SerializeField] int minSpawnAmount = 1, maxSpawnAmount = 5;
 
     Vector3 lastSpawnPosition = new Vector3(0f,0f,10f);
 
@@ -67,14 +68,17 @@ public class ObjectSpawner : MonoBehaviour
 
         for(int i = 0; i < numberOfInitialSpawns; ++i)
         {
-            int rng = Random.Range(0, spawns.Count);
-
-            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-
+            int amount = Random.Range(minSpawnAmount, maxSpawnAmount);
             Vector3 nextPosition = lastSpawnPosition + new Vector3(0, 0, spawnDistance);
 
-            pool.SpawnObject(spawns[rng], RandomPositionInCircle(nextPosition, spawnRadius), randomRotation);
+            for (int j = 0; j < amount; ++j)
+            {
+                int rng = Random.Range(0, spawns.Count);
 
+                Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));             
+
+                pool.SpawnObject(spawns[rng], RandomPositionInCircle(nextPosition, spawnRadius), randomRotation);
+            }
             lastSpawnPosition = nextPosition;
         }
 
