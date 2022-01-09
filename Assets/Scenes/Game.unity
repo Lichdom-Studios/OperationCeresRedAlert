@@ -1423,7 +1423,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.85
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1733,9 +1733,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbaf6afab808b447814d5a027ff8c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 15
   movementSpeed: 5
   rotationSpeed: 3
-  speedIncreaseAmount: 0.25
+  speedIncreaseAmount: 0.5
   difficultyChangeRate: 10
 --- !u!65 &971276392
 BoxCollider:

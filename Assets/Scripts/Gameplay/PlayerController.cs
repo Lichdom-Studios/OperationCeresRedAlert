@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
+    public float maxSpeed = 15f;
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
     public float speedIncreaseAmount = 0.1f;
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DifficultyChange()
     {
-        while(GameManager.instance.GetGameState() == GameState.PLAY)
+        while(GameManager.instance.GetGameState() == GameState.PLAY && movementSpeed < maxSpeed)
         {
             yield return difficultyDuration;
 
