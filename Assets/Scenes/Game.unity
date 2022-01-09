@@ -1401,6 +1401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829655975}
   - component: {fileID: 829655974}
+  - component: {fileID: 829655976}
   m_Layer: 0
   m_Name: BackgroundMusic
   m_TagString: Untagged
@@ -1420,7 +1421,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2605111267053856690, guid: 22061e7e8011f7d47b86c26e3e515c7b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1519,6 +1520,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &829655976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829655973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3271d0c2ade2f4b9ab7eb8c44bf8c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 829655974}
+  songs:
+  - {fileID: 8300000, guid: e7ec9e1b6b54e5046bf2cb840179d417, type: 3}
+  - {fileID: 8300000, guid: 81418483d1341944e82a01a67cfc4c1c, type: 3}
+  - {fileID: 8300000, guid: 00789f50971eb064eb66549d2bbb282e, type: 3}
+  - {fileID: 8300000, guid: dc2a5e222ebd82042aeadfe812c603e9, type: 3}
+  - {fileID: 8300000, guid: 1916334d3cc44ff4c9e8bdf7a4f22aa6, type: 3}
 --- !u!1 &922024871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,8 +1710,8 @@ MonoBehaviour:
   lives: 3
   scoreTick: 0.075
   interiorLight: {fileID: 1192163431}
-  pulseSpeed: 5
   cameraAnimation: {fileID: 1052600523}
+  lightAnimation: {fileID: 1192163433}
   audio1: {fileID: 971276395}
   audio2: {fileID: 1052600524}
   audio3: {fileID: 1192163432}
@@ -1700,6 +1720,7 @@ MonoBehaviour:
   hitClip: {fileID: 8300000, guid: 9930d5b4be15bb04c9d0a6fa0d7e6b2e, type: 3}
   sirenClip: {fileID: 0}
   gameoverClip: {fileID: 8300000, guid: 65b3207f91d67094e87be85dbe54c89d, type: 3}
+  gameoverSong: {fileID: 8300000, guid: 91050e6037e500b41aa03972097ed8a8, type: 3}
 --- !u!114 &971276391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +1798,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2237477820153026912, guid: 22061e7e8011f7d47b86c26e3e515c7b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2100,7 +2121,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2237477820153026912, guid: 22061e7e8011f7d47b86c26e3e515c7b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2294,6 +2315,7 @@ GameObject:
   - component: {fileID: 1192163431}
   - component: {fileID: 1192163430}
   - component: {fileID: 1192163432}
+  - component: {fileID: 1192163433}
   m_Layer: 0
   m_Name: InteriorLight
   m_TagString: Untagged
@@ -2410,7 +2432,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2237477820153026912, guid: 22061e7e8011f7d47b86c26e3e515c7b, type: 2}
   m_audioClip: {fileID: 8300000, guid: b73aa8067a5696b4c8ad2129c2c52583, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2494,6 +2516,113 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1192163433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192163428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 1
+  easeType: 6
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 1
+  loops: -1
+  id: 
+  isRelative: 0
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 1192163431}
+  animationType: 7
+  targetType: 4
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0.25
+  endValueV3: {x: 0, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalString: 
 --- !u!1 &1272472944
 GameObject:
   m_ObjectHideFlags: 0

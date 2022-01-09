@@ -10,16 +10,17 @@ public class Player : MonoBehaviour
     WaitForSeconds delay;
 
     [SerializeField] Light interiorLight;
-    [SerializeField] float pulseSpeed = 1f;
     float minIntensity, maxIntensity;
 
-    [SerializeField] DOTweenAnimation cameraAnimation;
+    [SerializeField] DOTweenAnimation cameraAnimation, lightAnimation;   
 
     [SerializeField] AudioSource audio1, audio2, audio3;
-    [SerializeField] AudioClip idleClip, engineClip, hitClip, sirenClip, gameoverClip;
+    [SerializeField] AudioClip idleClip, engineClip, hitClip, sirenClip, gameoverClip, gameoverSong;
 
     int score;
     GameUI gameUI;
+
+    Playlist music;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         gameUI = GameUI.instance;
+        music = Playlist.instance;
         delay = new WaitForSeconds(scoreTick);
 
         if (!cameraAnimation)
@@ -115,18 +117,13 @@ public class Player : MonoBehaviour
 
             if (lives == 2)
             {
-                maxIntensity = 1f;
+                maxIntensity = 3f;
                 interiorLight.intensity = maxIntensity;
-                StartCoroutine(WarningLight());
+
+                lightAnimation.DOPlay();
                 if (!audio3.clip)
                     audio3.clip = sirenClip;
                 audio3.Play();
-            }
-            else if (lives == 1)
-            {
-                maxIntensity = 3f;
-                interiorLight.intensity = maxIntensity;
-                pulseSpeed *= 1.5f;
             }
 
             if (lives <= 0)
@@ -139,32 +136,13 @@ public class Player : MonoBehaviour
 
                 maxIntensity = 5f;
                 interiorLight.intensity = maxIntensity;
-                pulseSpeed *= 2f;
+
+                music.PlaySong(gameoverSong);
 
                 GameManager.instance.UpdateGameState(GameState.GAMEOVER);
             }
         }
         else
             Destroy(other.gameObject);
-    }
-
-    IEnumerator WarningLight()
-    {
-        float targetIntensity = minIntensity;
-
-        while (isActiveAndEnabled)
-        {
-            interiorLight.intensity = Mathf.Lerp(interiorLight.intensity, targetIntensity, Time.deltaTime * pulseSpeed);
-
-            if (interiorLight.intensity < minIntensity + 0.01f)
-                targetIntensity = maxIntensity;
-
-            if (interiorLight.intensity > maxIntensity - 0.01f)
-                targetIntensity = minIntensity;
-
-            yield return null;
-        }
-
-        yield break;
     }
 }

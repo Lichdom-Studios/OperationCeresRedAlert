@@ -13,12 +13,15 @@ public class VolumeControl : MonoBehaviour
     [SerializeField] float valueMultiplier = 30f;
     [SerializeField] Toggle muteToggle;
 
-    void Awake()
+    void Start()
     {
         slider.onValueChanged.AddListener(SliderValueChanged);
         muteToggle.onValueChanged.AddListener(MuteToggleChanged);        
 
-        slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
+        if(volumeParameter == "MasterVolume")
+            slider.value = PlayerPrefs.GetFloat(volumeParameter, 0.5f);
+        else
+            slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.maxValue);
     }
 
     private void MuteToggleChanged(bool enableSound)
@@ -27,7 +30,7 @@ public class VolumeControl : MonoBehaviour
         {
             float newValue = PlayerPrefs.GetFloat(volumeParameter, slider.maxValue);
 
-            slider.value = newValue == 0f ? 0.25f : newValue;
+            slider.value = newValue == slider.minValue ? 0.25f : newValue;
         }
         else
             slider.value = slider.minValue;

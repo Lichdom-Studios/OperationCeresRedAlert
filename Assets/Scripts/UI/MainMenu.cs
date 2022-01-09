@@ -86,7 +86,7 @@ public class MainMenu : MonoBehaviour
                     ++iteration;
                     break;
                 case 3:
-                    loadingText.SetText("Loading..");
+                    loadingText.SetText("Loading...");
                     iteration = 0;
                     break;
             }
