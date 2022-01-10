@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     public static MainMenu instance;
     [SerializeField] List<VolumeControl> volumeControls;
+    [SerializeField] QualityControl qualityControl;
     [SerializeField] TextMeshProUGUI highscoreText;
 
     [SerializeField] GameObject loadingScreen;
@@ -45,6 +46,9 @@ public class MainMenu : MonoBehaviour
                 vc.SaveVolume();
             }
         }
+
+        if (qualityControl)
+            qualityControl.SaveQuality();
     }
 
     void UpdateHighscore()
