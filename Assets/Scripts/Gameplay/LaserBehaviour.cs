@@ -27,9 +27,8 @@ public class LaserBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "WholeAsteroid")
-        {
+        if(other.tag == "WholeAsteroid")      
             gameObject.SetActive(false);
-        }
+
     }
 }

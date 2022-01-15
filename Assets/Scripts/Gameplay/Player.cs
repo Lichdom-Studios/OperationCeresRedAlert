@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
                 maxIntensity = 5f;
                 interiorLight.intensity = maxIntensity;
 
-                music.PlaySong(gameoverSong);
+                music.PlaySong(gameoverSong, 0.5f);
 
                 GameManager.instance.UpdateGameState(GameState.GAMEOVER);
             }

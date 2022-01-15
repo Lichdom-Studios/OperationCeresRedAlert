@@ -15,15 +15,20 @@ public class FireWeapons : MonoBehaviour
     [SerializeField] float heatValue = 0.05f, cooldownRate = 0.5f;
     float heatLevel = 0f;
 
+    [SerializeField] AudioSource audio;
+
     bool overheated = false, cooldown = false;
     void Start()
     {
         delay = new WaitForSeconds(fireRate);
+
+        if (!audio)
+            audio = GetComponent<AudioSource>();
     }
 
     public void BeginFire()
     {
-        if (!overheated)
+        if (!overheated && GameManager.instance.GetGameState() == GameState.PLAY)
         {
             cooldown = false;
             StopCoroutine("Cooldown");
@@ -57,6 +62,11 @@ public class FireWeapons : MonoBehaviour
         while(!overheated)
         {
             weapons[index].FireWeapon();
+
+            float pitch = 0.9f + Random.Range(-0.1f, 0f);
+            audio.pitch = pitch;
+            audio.Play();
+            
             ++index;
 
             if (index >= weapons.Count)

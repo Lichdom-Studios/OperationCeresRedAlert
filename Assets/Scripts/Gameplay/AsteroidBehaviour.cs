@@ -12,6 +12,7 @@ public class AsteroidBehaviour : MonoBehaviour
         if (!fracture)
             fracture = GetComponent<Fracture>();
 
+
         if(Random.value > 0.5f)
             StartCoroutine(MoveAsteroid());
 
@@ -54,13 +55,17 @@ public class AsteroidBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Untagged" && fracture)
+        {
             fracture.FractureObject();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Untagged" && fracture)
+        {
             fracture.FractureObject();
+        }
     }
 
 }

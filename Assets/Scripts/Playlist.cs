@@ -32,9 +32,10 @@ public class Playlist : MonoBehaviour
         }
     }
 
-    public void PlaySong(AudioClip song)
+    public void PlaySong(AudioClip song, float volume = 0.15f)
     {
         audioSource.clip = song;
+        audioSource.volume = volume;
         audioSource.Play();
     }
 
