@@ -56,14 +56,9 @@ public class ObjectPool : MonoBehaviour
 
         GameObject obj = poolDictionary[tag].Dequeue();
 
-        obj.SetActive(true);
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-
-        DOTweenAnimation animation = obj.GetComponent<DOTweenAnimation>();
-
-        if (animation)
-            animation.DOPlay();
+        obj.SetActive(true);
 
         poolDictionary[tag].Enqueue(obj);
     }
