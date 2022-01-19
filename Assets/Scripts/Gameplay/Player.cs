@@ -128,6 +128,8 @@ public class Player : MonoBehaviour
 
             if (lives <= 0)
             {
+                audio3.DOFade(0f, 2f);
+
                 if (hitClip && audio2)
                 {
                     audio2.clip = gameoverClip;
