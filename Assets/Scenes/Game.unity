@@ -2986,8 +2986,8 @@ MonoBehaviour:
   - {fileID: 1556158472}
   fireRate: 0.25
   overheatBar: {fileID: 207220023}
-  heatValue: 0.05
-  cooldownRate: 0.5
+  heatValue: 0.1
+  cooldownRate: 0.25
   audio: {fileID: 0}
 --- !u!82 &1090959172
 AudioSource:

@@ -93,6 +93,15 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
                 FireWeapons.instance.EndFire();
 
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!System.IO.Directory.Exists(Application.dataPath + "/Screenshots/"))
+                    System.IO.Directory.CreateDirectory(Application.dataPath + "/Screenshots/");
+
+
+                ScreenCapture.CaptureScreenshot(Application.dataPath + "/Screenshots/" + System.DateTime.Now.ToString("yyyy''MM''dd'_'hh'-'mm'-'ss") + ".png");                
+            }
+
             yield return null;
         }
 #else
