@@ -18,13 +18,31 @@ public class FireWeapons : MonoBehaviour
     [SerializeField] AudioSource audio;
 
     bool overheated = false, cooldown = false;
+
+#if UNITY_STANDALONE_WIN
+    public static FireWeapons instance;
     void Start()
     {
         delay = new WaitForSeconds(fireRate);
 
         if (!audio)
             audio = GetComponent<AudioSource>();
+
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
     }
+#else
+  void Start()
+    {
+        delay = new WaitForSeconds(fireRate);
+
+        if (!audio)
+            audio = GetComponent<AudioSource>();
+    }
+#endif
+
 
     public void BeginFire()
     {

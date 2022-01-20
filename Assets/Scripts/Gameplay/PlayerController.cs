@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
         difficultyDuration = new WaitForSeconds(difficultyChangeRate);
 
         Input.gyro.enabled = true;
+
+#if UNITY_STANDALONE_WIN
+        Cursor.lockState = CursorLockMode.Locked;
+#endif
     }
     void CheckGameState(GameState state)
     {
@@ -39,7 +43,14 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DifficultyChange());
         }
         if (state == GameState.GAMEOVER)
+        {
             GameManager.OnGameStateChange -= CheckGameState;
+
+#if UNITY_STANDALONE_WIN
+            Cursor.lockState = CursorLockMode.None;
+            GameUI.instance.ReturnToMainMenu();
+#endif
+        }
     }
     IEnumerator MoveForward()
     {
@@ -61,6 +72,30 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator RotatePlayer()
     {
+#if UNITY_STANDALONE_WIN
+        Vector2 mousePos = new Vector2(0,0);
+        while (GameManager.instance.GetGameState() == GameState.PLAY)
+        {
+            mousePos.x += Input.GetAxis("Mouse X") * rotationSpeed;
+            mousePos.y += Input.GetAxis("Mouse Y") * rotationSpeed;
+
+            transform.localRotation = Quaternion.Euler(-mousePos.y, mousePos.x, 0);
+
+            //float clampedX = Mathf.Clamp(transform.eulerAngles.x, -25f, 25f);
+            //float clampedY = Mathf.Clamp(transform.eulerAngles.y, -25f, 25f);
+
+            //Quaternion clampedRot = Quaternion.Euler(clampedX, clampedY, newRotation.z);
+
+            transform.rotation = ClampRotation(transform.rotation, new Vector2(25,25));
+
+            if (Input.GetMouseButtonDown(0))
+                FireWeapons.instance.BeginFire();
+            if (Input.GetMouseButtonUp(0))
+                FireWeapons.instance.EndFire();
+
+            yield return null;
+        }
+#else
         while (GameManager.instance.GetGameState() == GameState.PLAY)
         {
             Vector3 gyro = Input.gyro.rotationRateUnbiased;
@@ -78,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
         }
-
+#endif
         yield break;
     }
 
