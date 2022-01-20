@@ -101,4 +101,14 @@ public class MainMenu : MonoBehaviour
 
         yield break;
     }
+
+    public void OpenTwitter()
+    {
+        Application.OpenURL("twitter://user?screen_name=LichdomStudios");
+    }
+
+    public void OpenFacebook()
+    {
+        Application.OpenURL("fb://profile/100214428470829");
+    }
 }
