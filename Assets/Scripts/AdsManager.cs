@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using Unity.Services.Mediation;
+using Unity.Services.Core;
+using System;
 
 public enum AdType
 {
@@ -10,17 +13,21 @@ public enum AdType
     REWARDED
 }
 
-public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     public static AdsManager Instance;
 
     public string androidID = "4542053", iOSID = "4542052";
-    public string androidRewarded = "Rewarded_Android", androidSkippable = "Interstitial_Android", androidBanner = "Banner_Android";
-    public string iOSRewarded = "Rewarded_iOS", iOSSkippable = "Interstitial_iOS", iOSBanner = "Banner_iOS";
+    public string androidRewarded = "Android_Rewarded", androidSkippable = "Android_Interstitial", androidBanner = "Banner_Android";
+    public string iOSRewarded = "iOS_Rewarded", iOSSkippable = "iOS_Interstitial", iOSBanner = "Banner_iOS";
+    string adID, rAd, iAd, bAd;
 
 
-    bool testMode = true;
+    bool testMode = false;
+
     AdType currentAdType = AdType.BANNER;
+    IRewardedAd rewardedAd;
+    IInterstitialAd interstitialAd;
 
     private void Awake()
     {
@@ -32,136 +39,185 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    async void Start()
     {
+        await UnityServices.InitializeAsync();
 #if UNITY_ANDROID
-        Advertisement.Initialize(androidID, testMode, this);
+        adID = androidID;
+        rAd = androidRewarded;
+        iAd = androidSkippable;
+        bAd = androidBanner;
 #elif UNITY_IOS
-        Advertisement.Initialize(iOSID, testMode, this);
+        adID = iOSID;
+        rAd = iOSRewarded;
+        iAd = iOSSkippable;
+        bAd = iOSBanner;
 #endif
+        //rewardedAd = MediationService.Instance.CreateRewardedAd(rAd);
+        interstitialAd = MediationService.Instance.CreateInterstitialAd(iAd);
+
+        // Subscribe callback methods to load events:
+        interstitialAd.OnLoaded += AdLoaded;
+        interstitialAd.OnFailedLoad += AdFailedToLoad;
+
+        // Subscribe callback methods to show events:
+        interstitialAd.OnShowed += AdShown;
+        interstitialAd.OnFailedShow += AdFailedToShow;
+        interstitialAd.OnClosed += AdClosed;
+
+        // Load an ad:
+        interstitialAd.Load();
     }
 
-    public void OnInitializationComplete()
+    // Implement load event callback methods:
+    void AdLoaded(object sender, EventArgs args)
     {
-        PlayAd(AdType.BANNER);
-        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-        Debug.Log("Unity Ads initialization complete.");
+        Debug.Log("Ad loaded.");
+        // Execute logic for when the ad has loaded
     }
 
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    void AdFailedToLoad(object sender, LoadErrorEventArgs args)
     {
-        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+        Debug.Log("Ad failed to load.");
+        // Execute logic for the ad failing to load.
     }
 
-
-    public void PlayAd(AdType type)
+    // Implement show event callback methods:
+    void AdShown(object sender, EventArgs args)
     {
-
-        currentAdType = type;
-
-#if UNITY_ANDROID
-        switch (currentAdType)
-        {
-            case AdType.BANNER:
-                Advertisement.Load(androidBanner, this);
-                break;
-            case AdType.SKIPPABLE:
-                Advertisement.Load(androidSkippable, this);
-                break;
-            case AdType.REWARDED:
-                Advertisement.Load(androidRewarded, this);
-                break;
-            default:
-                break;
-        }
-#elif UNITY_IOS
-
-        switch (currentAdType)
-        {
-            case AdType.BANNER:
-                Advertisement.Load(iOSBanner, this);
-                break;
-            case AdType.SKIPPABLE:
-                Advertisement.Load(iOSSkippable, this);
-                break;
-            case AdType.REWARDED:
-                Advertisement.Load(iOSRewarded, this);
-                break;
-            default:
-                break;
-        }
-#endif
-    }
-
-    public void OnUnityAdsAdLoaded(string placementId)
-    {
-#if UNITY_ANDROID
-        switch (currentAdType)
-        {
-            case AdType.BANNER:
-                Advertisement.Banner.Show("androidBanner");
-                break;
-            case AdType.SKIPPABLE:
-                Advertisement.Show(androidSkippable, this);
-                break;
-            case AdType.REWARDED:
-                Advertisement.Show(androidRewarded, this);
-                break;
-            default:
-                break;
-        }
-#elif UNITY_IOS
-
-        switch (currentAdType)
-        {
-            case AdType.BANNER:
-                Advertisement.Banner.Show("iOSBanner");
-                break;
-            case AdType.SKIPPABLE:
-                Advertisement.Show(iOSSkippable, this);
-                break;
-            case AdType.REWARDED:
-                Advertisement.Show(iOSRewarded, this);
-                break;
-            default:
-                break;
-        }
-#endif
-    }
-
-    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
-    {
-        Debug.LogError("Ad failed to load: " + message);
-    }
-
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
-    {
-        Debug.LogError("Ad failed to show: " + message);
-    }
-
-    public void OnUnityAdsShowStart(string placementId)
-    {
+        Debug.Log("Ad shown successfully.");
+        // Execute logic for the ad showing successfully.
 
     }
 
-    public void OnUnityAdsShowClick(string placementId)
+    void AdFailedToShow(object sender, ShowErrorEventArgs args)
     {
-
-    }
-
-    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
-    {
+        Debug.Log("Ad failed to show.");
+        // Execute logic for the ad failing to show.
         if (currentAdType == AdType.SKIPPABLE)
         {
+            interstitialAd.Load();
+            //Returns to main menu from a game scene
+            if (GameUI.instance)
+                GameUI.instance.ReturnToMainMenu();
+        }
+    }
+
+    private void AdClosed(object sender, EventArgs e)
+    {
+        Debug.Log("Ad has closed");
+        // Execute logic after an ad has been closed.
+        if (currentAdType == AdType.SKIPPABLE)
+        {
+            interstitialAd.Load();
             //Returns to main menu from a game scene
             if (GameUI.instance)
                 GameUI.instance.ReturnToMainMenu();
         }
         if (currentAdType == AdType.REWARDED)
         {
-            
+
         }
     }
 
+    public void ShowAd()
+    {
+        // Ensure the ad has loaded, then show it.
+        if (interstitialAd.AdState == AdState.Loaded)
+        {
+            interstitialAd.Show();
+        }
+    }
+
+    public void PlayAd(AdType type)
+    {
+
+        currentAdType = type;
+
+        switch (currentAdType)
+        {
+            case AdType.BANNER:
+                //Advertisement.Load(androidBanner, this);
+                break;
+            case AdType.SKIPPABLE:
+                if (interstitialAd.AdState == AdState.Loaded)
+                {
+                    interstitialAd.Show();
+                }
+                break;
+            case AdType.REWARDED:
+                //Advertisement.Load(androidRewarded, this);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    #region Old and likely will be deleted
+    //public void OnInitializationComplete()
+    //{
+    //    PlayAd(AdType.BANNER);
+    //    //Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+    //    Debug.Log("Unity Ads initialization complete.");
+    //}
+
+    //public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    //{
+    //    Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+    //}
+
+    //public void OnUnityAdsAdLoaded(string placementId)
+    //{
+    //    switch (currentAdType)
+    //    {
+    //        case AdType.BANNER:
+    //            //Advertisement.Banner.Show("androidBanner");
+    //            break;
+    //        case AdType.SKIPPABLE:
+    //            //Advertisement.Show(androidSkippable, this);
+    //            break;
+    //        case AdType.REWARDED:
+    //            //Advertisement.Show(androidRewarded, this);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    ////public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    ////{
+    ////    Debug.LogError("Ad failed to load: " + message);
+    ////}
+
+    ////public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    ////{
+    ////    Debug.LogError("Ad failed to show: " + message);
+    ////}
+
+    //public void OnUnityAdsShowStart(string placementId)
+    //{
+
+    //}
+
+    //public void OnUnityAdsShowClick(string placementId)
+    //{
+
+    //}
+
+    //public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+    //{
+    //    if (currentAdType == AdType.SKIPPABLE)
+    //    {
+    //        //Returns to main menu from a game scene
+    //        if (GameUI.instance)
+    //            GameUI.instance.ReturnToMainMenu();
+    //    }
+    //    if (currentAdType == AdType.REWARDED)
+    //    {
+
+    //    }
+    //}
+    #endregion Old and likely will be deleted
 
 }
