@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] Image displayImage;
     [SerializeField] List<Sprite> slides;
+    [SerializeField] TextMeshProUGUI displayText;
+    [SerializeField] List<string> texts;
     [SerializeField] Button previousButton, nextButton;
 
     int currentSlide = 0;
@@ -14,6 +17,8 @@ public class Tutorial : MonoBehaviour
     {
         if(slides.Count > 0)
             displayImage.sprite = slides[0];
+        if (texts.Count > 0)
+            displayText.SetText(texts[0]);
     }
 
     public void PreviousSlide()
@@ -52,5 +57,6 @@ public class Tutorial : MonoBehaviour
             nextButton.interactable = false;
 
         displayImage.sprite = slides[currentSlide];
+        displayText.SetText(texts[currentSlide]);
     }
 }

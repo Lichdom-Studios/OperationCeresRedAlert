@@ -6,12 +6,14 @@ public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] float spawnRadius = 1.5f;
     [SerializeField] float spawnDistance = 10f;
-    [SerializeField] int minSpawnAmount = 1, maxSpawnAmount = 5;
+    [SerializeField] int minSpawnAmount = 1, maxSpawnAmount = 5, difficultyChange = 1, maxDifficulty = 20;
+    [SerializeField] float difficultyChangeRate = 30f;
 
     Vector3 lastSpawnPosition = new Vector3(0f,0f,10f);
 
     [SerializeField] List<string> spawns;
     WaitForSeconds delay;
+    WaitForSeconds difficultyWait;
 
     ObjectPool pool;
 
@@ -22,8 +24,7 @@ public class ObjectSpawner : MonoBehaviour
         pool = ObjectPool.Instance;
 
         delay = new WaitForSeconds(1f);
-
-
+        difficultyWait = new WaitForSeconds(difficultyChangeRate);
 
         GameManager.instance.UpdateGameState(GameState.SETUP);
 
@@ -33,8 +34,11 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (state == GameState.SETUP)
             SetupInitialSpawns();
-        if(state == GameState.PLAY)
+        if (state == GameState.PLAY)
+        {
             StartCoroutine(SpawnObjects());
+            StartCoroutine(ChangeDifficulty());
+        }
         if (state == GameState.GAMEOVER)
             GameManager.OnGameStateChange -= CheckGameState;
     }
@@ -83,6 +87,19 @@ public class ObjectSpawner : MonoBehaviour
         }
 
         GameManager.instance.UpdateGameState(GameState.COUNTDOWN);
+    }
+
+    IEnumerator ChangeDifficulty()
+    {
+        while(GameManager.instance.GetGameState() == GameState.PLAY && maxSpawnAmount < maxDifficulty)
+        {
+            yield return difficultyWait;
+            maxSpawnAmount += difficultyChange;
+            minSpawnAmount += difficultyChange;
+            yield return null;
+        }
+
+        yield break;
     }
 
     Vector3 RandomPositionInCircle(Vector3 center, float radius)

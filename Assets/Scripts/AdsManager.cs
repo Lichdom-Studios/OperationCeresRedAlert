@@ -94,7 +94,7 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
     {
         Debug.Log("Ad failed to show.");
         // Execute logic for the ad failing to show.
-        if (currentAdType == AdType.SKIPPABLE)
+        if (currentAdType != AdType.REWARDED || interstitialAd.AdState == AdState.Unloaded)
         {
             interstitialAd.Load();
             //Returns to main menu from a game scene

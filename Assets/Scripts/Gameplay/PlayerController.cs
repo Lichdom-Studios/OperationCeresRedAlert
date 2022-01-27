@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 gyro = Input.gyro.rotationRateUnbiased;
 
-            Vector3 newRotation = new Vector3(transform.rotation.x + -(gyro.x * Mathf.Rad2Deg * Time.deltaTime * rotationSpeed), transform.rotation.y + -(gyro.y * Mathf.Rad2Deg * Time.deltaTime * rotationSpeed), transform.rotation.z);
+            Vector3 newRotation = new Vector3(transform.rotation.x + -(gyro.x * Mathf.Rad2Deg * Time.deltaTime * rotationSpeed), transform.rotation.y + -(gyro.z * Mathf.Rad2Deg * Time.deltaTime * rotationSpeed), transform.rotation.z);
 
             transform.Rotate(newRotation);
 

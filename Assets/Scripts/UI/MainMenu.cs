@@ -109,6 +109,6 @@ public class MainMenu : MonoBehaviour
 
     public void OpenFacebook()
     {
-        Application.OpenURL("fb://profile/100214428470829");
+        Application.OpenURL("fb://page/100214428470829");
     }
 }
