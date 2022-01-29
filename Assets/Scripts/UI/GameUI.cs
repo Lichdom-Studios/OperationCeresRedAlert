@@ -13,7 +13,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] DOTweenAnimation countdownAnimation;
 
     [SerializeField] TextMeshProUGUI highscore;
-    [SerializeField] GameObject gameoverScreen;
+    [SerializeField] GameObject gameoverScreen, shareButton, scoreObject;
 
     private void Awake()
     {
@@ -43,8 +43,18 @@ public class GameUI : MonoBehaviour
                 countdown.gameObject.SetActive(false);
                 break;
             case GameState.GAMEOVER:
-                gameoverScreen.SetActive(true);
-                GameManager.OnGameStateChange -= CheckGameState;
+                {
+                    gameoverScreen.SetActive(true);
+                    scoreObject.transform.parent = gameoverScreen.transform;
+                    scoreObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 65f, 0);
+                    scoreObject.GetComponent<TextMeshProUGUI>().horizontalAlignment = HorizontalAlignmentOptions.Center;
+                    int score = PlayerController.instance.gameObject.GetComponent<Player>().GetScore();
+                    if (score >= PlayerPrefs.GetInt("Highscore"))
+                    {
+                        shareButton.SetActive(true);
+                    }
+                    GameManager.OnGameStateChange -= CheckGameState;
+                }
                 break;
         }
     }
@@ -96,5 +106,4 @@ public class GameUI : MonoBehaviour
     {
         AdsManager.Instance.PlayAd(AdType.SKIPPABLE);
     }
-
 }

@@ -147,4 +147,9 @@ public class Player : MonoBehaviour
         else
             Destroy(other.gameObject);
     }
+
+    public int GetScore()
+    {
+        return score;
+    }
 }
