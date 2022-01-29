@@ -119,4 +119,9 @@ public class ObjectSpawner : MonoBehaviour
 
         return pos;
     }
+
+    public int GetCurrentDifficulty()
+    {
+        return maxSpawnAmount;
+    }
 }

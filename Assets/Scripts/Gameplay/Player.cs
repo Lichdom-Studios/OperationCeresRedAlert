@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
     Playlist music;
 
+    float gameDuration;
+
     private void Awake()
     {
         GameManager.OnGameStateChange += CheckGameState;
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
                 }
                 break;
             case GameState.PLAY:
-                if(engineClip && audio1)
+                if (engineClip && audio1)
                 {
                     audio1.clip = engineClip;
                     audio1.Play();
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(CalculateScore());
                 break;
             case GameState.GAMEOVER:
+                gameDuration = Time.timeSinceLevelLoad;
                 if (idleClip && audio1)
                 {
                     audio1.clip = idleClip;
@@ -151,5 +154,10 @@ public class Player : MonoBehaviour
     public int GetScore()
     {
         return score;
+    }
+
+    public float GetDuration()
+    {
+        return gameDuration - 3;
     }
 }
