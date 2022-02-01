@@ -46,7 +46,11 @@ public class GameUI : MonoBehaviour
                 {
                     gameoverScreen.SetActive(true);
                     scoreObject.transform.parent = gameoverScreen.transform;
-                    scoreObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 65f, 0);
+                    RectTransform scoreRect = scoreObject.GetComponent<RectTransform>();
+                    scoreRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    scoreRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    scoreRect.pivot = new Vector2(0.5f, 0.5f);
+                    scoreRect.anchoredPosition = new Vector3(0, 65f, 0);
                     scoreObject.GetComponent<TextMeshProUGUI>().horizontalAlignment = HorizontalAlignmentOptions.Center;
                     int score = PlayerController.instance.gameObject.GetComponent<Player>().GetScore();
                     if (score >= PlayerPrefs.GetInt("Highscore"))
@@ -104,6 +108,10 @@ public class GameUI : MonoBehaviour
 
     public void PlayAdBeforeExit()
     {
+#if UNITY_STANDALONE_WIN
+        ReturnToMainMenu();
+#else
         AdsManager.Instance.PlayAd(AdType.SKIPPABLE);
+#endif
     }
 }

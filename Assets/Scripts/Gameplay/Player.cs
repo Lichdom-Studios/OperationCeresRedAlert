@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+
     [SerializeField] int lives = 3;
     [SerializeField] float scoreTick = 1f;
     WaitForSeconds delay;
@@ -26,6 +28,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+
         GameManager.OnGameStateChange += CheckGameState;
     }
 
@@ -83,8 +90,7 @@ public class Player : MonoBehaviour
         {
             yield return delay;
 
-            ++score;
-            gameUI.UpdateHighscore(score);
+            AddToScore(1);
 
             yield return null;
         }
@@ -151,6 +157,11 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
     }
 
+    public void AddToScore(int value)
+    {
+        score += value;
+        gameUI.UpdateHighscore(score);
+    }
     public int GetScore()
     {
         return score;

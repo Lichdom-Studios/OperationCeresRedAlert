@@ -6,6 +6,7 @@ public class LaserBehaviour : MonoBehaviour
 {
     public float speed = 100f;
     [SerializeField] float maxRange = 100f;
+    [SerializeField] int points = 3;
     private void OnEnable()
     {
         StartCoroutine(Move());
@@ -27,8 +28,11 @@ public class LaserBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "WholeAsteroid")      
+        if (other.tag == "WholeAsteroid")
+        {
+            Player.instance.AddToScore(points);
             gameObject.SetActive(false);
+        }
 
     }
 }

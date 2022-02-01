@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_STANDALONE_WIN
             Cursor.lockState = CursorLockMode.None;
-            GameUI.instance.ReturnToMainMenu();
 #endif
         }
     }
