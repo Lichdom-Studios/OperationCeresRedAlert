@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class FireWeapons : MonoBehaviour
 {
+    public static FireWeapons instance;
     [SerializeField] List<Shoot> weapons;
+    [SerializeField] Shoot photonCannon;
     [SerializeField] float fireRate = 0.5f;
     WaitForSeconds delay;
     int index = 0;
 
     [SerializeField] Slider overheatBar;
+    [SerializeField] Slider photonSlider;
+    float photonCharge = 0f;
+
     [Range(0f, 1f)]
     [SerializeField] float heatValue = 0.05f, cooldownRate = 0.5f;
     float heatLevel = 0f;
 
+    [SerializeField] Material photonIndicator;
     [SerializeField] AudioSource audio;
 
     bool overheated = false, cooldown = false;
@@ -36,6 +42,13 @@ public class FireWeapons : MonoBehaviour
 #else
   void Start()
     {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+
         delay = new WaitForSeconds(fireRate);
 
         if (!audio)
@@ -113,5 +126,29 @@ public class FireWeapons : MonoBehaviour
 
         overheated = false;
         yield break;
+    }
+    public void ChargePhotonCannon(float value)
+    {
+        if (photonCharge < 1f)
+        {
+            photonCharge = Mathf.Clamp01(photonCharge + (value / 100f));
+
+            photonSlider.value = photonCharge;
+
+            if (photonCharge == 1f)
+            {
+                photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * 1f);
+                GameUI.instance.ActivatePhotonCannon(true);
+            }
+        }
+    }
+
+    public void FireCannon()
+    {
+        photonCannon.FireCannon();
+        photonCharge = 0;
+        photonSlider.value = 0;
+        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        GameUI.instance.ActivatePhotonCannon(false);
     }
 }

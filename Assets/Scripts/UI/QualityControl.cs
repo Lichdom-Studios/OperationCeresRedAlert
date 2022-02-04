@@ -8,6 +8,7 @@ public class QualityControl : MonoBehaviour
 {
     [SerializeField] List<RenderPipelineAsset> qualityLevels;
     [SerializeField] TMP_Dropdown dropdown;
+    [SerializeField] AudioSource audio;
     
     void Start()
     {
@@ -17,6 +18,8 @@ public class QualityControl : MonoBehaviour
         {
             QualitySettings.renderPipeline = qualityLevels[dropdown.value];
         }
+
+        audio.enabled = true;
 
         Debug.Log("Quality Settings Set To: " + QualitySettings.GetRenderPipelineAssetAt(dropdown.value));
     }

@@ -171,4 +171,5 @@ public class Player : MonoBehaviour
     {
         return gameDuration - 3;
     }
+
 }

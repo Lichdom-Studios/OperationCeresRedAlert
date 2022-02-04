@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -14,6 +15,7 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI highscore;
     [SerializeField] GameObject gameoverScreen, shareButton, scoreObject;
+    [SerializeField] Button photonCannonButton;
 
     private void Awake()
     {
@@ -113,5 +115,15 @@ public class GameUI : MonoBehaviour
 #else
         AdsManager.Instance.PlayAd(AdType.SKIPPABLE);
 #endif
+    }
+
+    public void ActivatePhotonCannon(bool activate)
+    {
+        photonCannonButton.gameObject.SetActive(activate);
+    }
+
+    public void FirePhotonCannon()
+    {
+        FireWeapons.instance.FireCannon();
     }
 }

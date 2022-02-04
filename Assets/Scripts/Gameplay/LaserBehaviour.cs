@@ -7,9 +7,11 @@ public class LaserBehaviour : MonoBehaviour
     public float speed = 100f;
     [SerializeField] float maxRange = 100f;
     [SerializeField] int points = 3;
+    [SerializeField] int photonCharge = 5;
     private void OnEnable()
     {
-        StartCoroutine(Move());
+        if(GameManager.instance.GetGameState() == GameState.PLAY)
+            StartCoroutine(Move());
     }
 
     IEnumerator Move()
@@ -28,9 +30,10 @@ public class LaserBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WholeAsteroid")
+        if (other.tag == "WholeAsteroid" && GameManager.instance.GetGameState() == GameState.PLAY)
         {
             Player.instance.AddToScore(points);
+            FireWeapons.instance.ChargePhotonCannon(photonCharge);
             gameObject.SetActive(false);
         }
 

@@ -54,7 +54,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Untagged" && fracture)
+        if (collision.gameObject.tag == "Player" && fracture)
         {
             fracture.FractureObject();
         }
@@ -62,7 +62,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Untagged" && fracture)
+        if (other.tag == "Player" && fracture)
         {
             fracture.FractureObject();
         }

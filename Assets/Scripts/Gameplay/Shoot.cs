@@ -16,4 +16,9 @@ public class Shoot : MonoBehaviour
     {
         objectPool.SpawnObject("Laser", transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
     }
+
+    public void FireCannon()
+    {
+        objectPool.SpawnObject("PhotonBlast", transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
+    }
 }
