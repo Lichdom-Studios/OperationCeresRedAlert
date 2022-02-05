@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
                 FireWeapons.instance.EndFire();
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!System.IO.Directory.Exists(Application.dataPath + "/Screenshots/"))
                     System.IO.Directory.CreateDirectory(Application.dataPath + "/Screenshots/");

@@ -26,18 +26,36 @@ public class FireWeapons : MonoBehaviour
     bool overheated = false, cooldown = false;
 
 #if UNITY_STANDALONE_WIN
-    public static FireWeapons instance;
     void Start()
     {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+
         delay = new WaitForSeconds(fireRate);
 
         if (!audio)
             audio = GetComponent<AudioSource>();
 
-        if (!instance)
-            instance = this;
-        else
-            Destroy(gameObject);
+        StartCoroutine(WindowsFirePhotonCannon());
+    }
+
+    IEnumerator WindowsFirePhotonCannon()
+    {
+        while(isActiveAndEnabled)
+        {
+            if(photonCharge == 1 && Input.GetMouseButtonDown(1))
+            {
+                FireCannon();
+            }
+
+            yield return null;
+        }
+
+        yield break;
     }
 #else
   void Start()
