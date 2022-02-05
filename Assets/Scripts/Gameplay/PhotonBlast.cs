@@ -6,7 +6,7 @@ using DG.Tweening;
 public class PhotonBlast : MonoBehaviour
 {
     public float startSpeed = 10f;
-    [SerializeField] float maxRange = 100f;
+    [SerializeField] float maxDuration = 3f;
     [SerializeField] int points = 3;
     Sequence animationSequence;
     [SerializeField] Material material, coreMaterial;    
@@ -25,9 +25,9 @@ public class PhotonBlast : MonoBehaviour
         coreMaterial.color = coreColor;
 
         animationSequence = DOTween.Sequence().Pause();
-        animationSequence.Insert(0, transform.DOScale(100f, 2f));
-        animationSequence.Insert(0, coreMaterial.DOFade(0f, 2f));
-        animationSequence.Insert(0, material.DOFade(0f, 2f).OnComplete(ResetPhotonBlast));
+        animationSequence.Insert(0, transform.DOScale(75f, 2f).OnComplete(ResetPhotonBlast));
+        animationSequence.Insert(0, coreMaterial.DOFade(0f, 1.5f));
+        animationSequence.Insert(0, material.DOFade(0f, 1.5f));
 
         if (!cameraAnimation)
             cameraAnimation = Camera.main.GetComponent<DOTweenAnimation>();
@@ -47,10 +47,14 @@ public class PhotonBlast : MonoBehaviour
             audio.Play();
         }
 
+        float duration = maxDuration;
+
         float speed = startSpeed + PlayerController.instance.movementSpeed;
-        while (Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= maxRange)
+        while (duration > 0f)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+
+            duration -= Time.deltaTime;
 
             yield return null;
         }

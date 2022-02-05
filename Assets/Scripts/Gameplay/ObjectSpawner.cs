@@ -52,12 +52,16 @@ public class ObjectSpawner : MonoBehaviour
 
             if (Vector3.Distance(lastSpawnPosition, transform.position) >= spawnDistance)
             {
-                int rng = Random.Range(0, spawns.Count);
+                int amount = Random.Range(minSpawnAmount, maxSpawnAmount);
 
-                Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+                for (int j = 0; j < amount; ++j)
+                {
+                    int rng = Random.Range(0, spawns.Count);
 
-                pool.SpawnObject(spawns[rng], RandomPositionInCircle(transform.position, spawnRadius), randomRotation);
+                    Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
+                    pool.SpawnObject(spawns[rng], RandomPositionInCircle(transform.position, spawnRadius), randomRotation);
+                }
                 lastSpawnPosition = transform.position;
             }
             yield return null;
@@ -72,7 +76,7 @@ public class ObjectSpawner : MonoBehaviour
 
         for(int i = 0; i < numberOfInitialSpawns; ++i)
         {
-            int amount = Random.Range(minSpawnAmount, maxSpawnAmount);
+            int amount = Random.Range(minSpawnAmount - 1, maxSpawnAmount - 1);
             Vector3 nextPosition = lastSpawnPosition + new Vector3(0, 0, spawnDistance);
 
             for (int j = 0; j < amount; ++j)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserBehaviour : MonoBehaviour
 {
-    public float speed = 100f;
+    public float startSpeed = 100f;
     [SerializeField] float maxRange = 100f;
     [SerializeField] int points = 3;
     [SerializeField] int photonCharge = 5;
@@ -16,7 +16,8 @@ public class LaserBehaviour : MonoBehaviour
 
     IEnumerator Move()
     {
-        while(Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= maxRange)
+        float speed = startSpeed + PlayerController.instance.movementSpeed;
+        while (Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= maxRange)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
 
