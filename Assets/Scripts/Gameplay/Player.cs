@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 
             if (lives == 2)
             {
-                maxIntensity = 3f;
+                maxIntensity = 25f;
                 interiorLight.intensity = maxIntensity;
 
                 lightAnimation.DOPlay();
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
                     audio2.Play();                    
                 }
 
-                maxIntensity = 5f;
+                maxIntensity = 100f;
                 interiorLight.intensity = maxIntensity;
 
                 music.PlaySong(gameoverSong, 0.5f);

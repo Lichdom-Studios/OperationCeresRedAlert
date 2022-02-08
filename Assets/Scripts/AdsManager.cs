@@ -18,8 +18,8 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
     public static AdsManager Instance;
 
     public string androidID = "4542053", iOSID = "4542052";
-    public string androidRewarded = "Android_Rewarded", androidSkippable = "Android_Interstitial", androidBanner = "Banner_Android";
-    public string iOSRewarded = "iOS_Rewarded", iOSSkippable = "iOS_Interstitial", iOSBanner = "Banner_iOS";
+    public string androidRewarded = "Rewarded_Android", androidSkippable = "Interstitial_Android", androidBanner = "Banner_Android";
+    public string iOSRewarded = "Rewarded_iOS", iOSSkippable = "Interstitial_iOS", iOSBanner = "Banner_iOS";
     string adID, rAd, iAd, bAd;
 
 

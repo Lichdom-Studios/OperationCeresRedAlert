@@ -33,7 +33,8 @@ public class FireWeapons : MonoBehaviour
         else
             Destroy(gameObject);
 
-        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        //photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        photonIndicator.DisableKeyword("_EMISSION");
 
         delay = new WaitForSeconds(fireRate);
 
@@ -65,7 +66,8 @@ public class FireWeapons : MonoBehaviour
         else
             Destroy(gameObject);
 
-        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        //photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        photonIndicator.DisableKeyword("_EMISSION");
 
         delay = new WaitForSeconds(fireRate);
 
@@ -155,7 +157,8 @@ public class FireWeapons : MonoBehaviour
 
             if (photonCharge == 1f)
             {
-                photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * 1f);
+                //photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .75f);
+                photonIndicator.EnableKeyword("_EMISSION");
                 GameUI.instance.ActivatePhotonCannon(true);
             }
         }
@@ -166,7 +169,8 @@ public class FireWeapons : MonoBehaviour
         photonCannon.FireCannon();
         photonCharge = 0;
         photonSlider.value = 0;
-        photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        //photonIndicator.SetColor("_EmissionColor", new Color(2f, 22f, 96f, 1f) * .01f);
+        photonIndicator.DisableKeyword("_EMISSION");
         GameUI.instance.ActivatePhotonCannon(false);
     }
 }

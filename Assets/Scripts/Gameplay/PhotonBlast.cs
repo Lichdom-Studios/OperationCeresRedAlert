@@ -24,10 +24,12 @@ public class PhotonBlast : MonoBehaviour
         material.color = photonColor;
         coreMaterial.color = coreColor;
 
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
         animationSequence = DOTween.Sequence().Pause();
-        animationSequence.Insert(0, transform.DOScale(75f, 2f).OnComplete(ResetPhotonBlast));
+        animationSequence.Insert(0, transform.DOScale(75f, 3f).OnComplete(ResetPhotonBlast));
         animationSequence.Insert(0, coreMaterial.DOFade(0f, 1.5f));
-        animationSequence.Insert(0, material.DOFade(0f, 1.5f));
+        animationSequence.Insert(0, material.DOFade(0f, 3f));
 
         if (!cameraAnimation)
             cameraAnimation = Camera.main.GetComponent<DOTweenAnimation>();
