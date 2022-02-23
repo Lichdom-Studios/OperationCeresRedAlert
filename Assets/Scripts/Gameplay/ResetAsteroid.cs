@@ -8,19 +8,19 @@ public class ResetAsteroid : MonoBehaviour
     [SerializeField] bool hide = true;
     void Update()
     {
-        if (hide)
-        {
+        //if (hide)
+        //{
             if (PlayerController.instance.transform.position.z - transform.position.z >= maxDistance)
             {
                 gameObject.SetActive(false);
             }
-        }
-        else
-        {
-            if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) >= maxDistance)
-            {
-                Destroy(gameObject);
-            }
-        }
+        //}
+        //else
+        //{
+        //    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) >= maxDistance)
+        //    {
+        //        Destroy(gameObject);
+        //    }
+        //}
     }
 }

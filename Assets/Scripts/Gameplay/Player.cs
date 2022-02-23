@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] Light interiorLight;
     float minIntensity, maxIntensity;
+    [SerializeField] ParticleSystem smokeEffect;
 
     [SerializeField] DOTweenAnimation cameraAnimation, lightAnimation;   
 
@@ -126,13 +127,22 @@ public class Player : MonoBehaviour
 
             if (lives == 2)
             {
-                maxIntensity = 25f;
+                maxIntensity = 10f;
                 interiorLight.intensity = maxIntensity;
 
                 lightAnimation.DOPlay();
                 if (!audio3.clip)
                     audio3.clip = sirenClip;
                 audio3.Play();
+            }
+
+            if(lives == 1)
+            {
+                smokeEffect.Play();
+
+                maxIntensity = 20f;
+                interiorLight.intensity = maxIntensity;
+
             }
 
             if (lives <= 0)
@@ -145,8 +155,8 @@ public class Player : MonoBehaviour
                     audio2.Play();                    
                 }
 
-                maxIntensity = 100f;
-                interiorLight.intensity = maxIntensity;
+                maxIntensity = 40f;
+                interiorLight.intensity = maxIntensity;                
 
                 music.PlaySong(gameoverSong, 0.5f);
 

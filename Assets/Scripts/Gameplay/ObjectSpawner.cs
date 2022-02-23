@@ -49,6 +49,7 @@ public class ObjectSpawner : MonoBehaviour
         while (GameManager.instance.GetGameState() == GameState.PLAY)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * PlayerController.instance.movementSpeed);
+            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + PlayerController.instance.transform.position.z);
 
             if (Vector3.Distance(lastSpawnPosition, transform.position) >= spawnDistance)
             {
@@ -76,7 +77,7 @@ public class ObjectSpawner : MonoBehaviour
 
         for(int i = 0; i < numberOfInitialSpawns; ++i)
         {
-            int amount = Random.Range(minSpawnAmount - 1, maxSpawnAmount - 1);
+            int amount = Random.Range(minSpawnAmount, maxSpawnAmount);
             Vector3 nextPosition = lastSpawnPosition + new Vector3(0, 0, spawnDistance);
 
             for (int j = 0; j < amount; ++j)
