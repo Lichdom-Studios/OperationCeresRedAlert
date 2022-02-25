@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] Light interiorLight;
     float minIntensity, maxIntensity;
-    [SerializeField] ParticleSystem smokeEffect;
+    [SerializeField] ParticleSystem sparksEffect, electricityEffect, smokeEffect;
 
     [SerializeField] DOTweenAnimation cameraAnimation, lightAnimation;   
 
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
 
                 audio2.pitch = 1 + randomPitch;
                 audio2.clip = hitClip;
-                audio2.Play();
+                audio2.Play();                
             }
 
             --lives;
@@ -134,15 +134,16 @@ public class Player : MonoBehaviour
                 if (!audio3.clip)
                     audio3.clip = sirenClip;
                 audio3.Play();
+                sparksEffect.Play();
             }
 
             if(lives == 1)
-            {
-                smokeEffect.Play();
-
+            {              
                 maxIntensity = 20f;
                 interiorLight.intensity = maxIntensity;
 
+                electricityEffect.Play();
+                smokeEffect.Play();                
             }
 
             if (lives <= 0)

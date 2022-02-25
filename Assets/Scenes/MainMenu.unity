@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1dfdf39a70e4feb4893f292a8656f30f, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -6188,7 +6188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1403051771
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7305,17 +7305,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayImage: {fileID: 1382410411}
   slides:
+  - {fileID: 21300000, guid: b6fff71788244784dab5a7cfe2442a65, type: 3}
   - {fileID: 21300000, guid: 165301afadff7ba4bb4553bc054ec5bf, type: 3}
   - {fileID: 21300000, guid: ac4d13052cf5efc4ab8ad9ec02ee6a99, type: 3}
   - {fileID: 21300000, guid: 459828068c9eb7e45ad5eff43f7dacda, type: 3}
   - {fileID: 21300000, guid: 042cbc5895f9d434d8bd35e874d0b360, type: 3}
   - {fileID: 21300000, guid: 9f34b915093a53d4e86b08072c553969, type: 3}
+  - {fileID: 21300000, guid: de09374b6facf124399c57b9a3ea94a0, type: 3}
+  - {fileID: 21300000, guid: 5550c444523bd1d47a2b87c92a12444f, type: 3}
+  - {fileID: 21300000, guid: 16bb1b1405ad36c449db4b16368c0d53, type: 3}
+  - {fileID: 21300000, guid: f1ef1edfe5f29844a969408f46f83a6a, type: 3}
+  - {fileID: 21300000, guid: 47d200650305ee44fb26ca5e625d0c4f, type: 3}
   displayText: {fileID: 655668311}
   texts:
-  - Tilt your phone to turn up and down.
+  - Your ship will automatically move forward.
   - Rotate your phone to steer  left and right.
+  - Tilt your phone to turn up and down.
   - Tap anywhere on the screen to fire your weapons to destroy asteroids!
-  - Avoid the asteroids and don't get it.
+  - When asteroids are destroyed by your lasers, you charge your photon cannon (and
+    gain additional points).
+  - Using your weapons causes your systems to heat up, avoid overheating and forcing
+    a cooldown.
+  - Tap the button that appears when your cannon is fully charged to fire a photon
+    blast!
+  - The photon blast travels forward in the direction you aimed.
+  - When the photon blast collides with an asteroid or reaches its maximum distance,
+    it explodes destroying all asteroids in the radius (and awarding points per asteroid
+    destroyed).
+  - Avoid the asteroids and don't get hit.
   - Get hit 3 times and the game is over!
   previousButton: {fileID: 837522631}
   nextButton: {fileID: 144091697}
@@ -8788,8 +8805,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 12105912
-  m_fontColor: {r: 0.72156864, g: 0.72156864, b: 0.72156864, a: 0}
+    rgba: 4290295992
+  m_fontColor: {r: 0.72156864, g: 0.72156864, b: 0.72156864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
