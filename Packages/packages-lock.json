@@ -67,7 +67,7 @@
       "dependencies": {
         "com.unity.ide.visualstudio": "2.0.14",
         "com.unity.ide.rider": "3.0.12",
-        "com.unity.ide.vscode": "1.2.4",
+        "com.unity.ide.vscode": "1.2.5",
         "com.unity.editorcoroutines": "1.0.0",
         "com.unity.performance.profile-analyzer": "1.1.1",
         "com.unity.test-framework": "1.1.29",
@@ -93,7 +93,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -121,7 +121,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "12.1.4",
+      "version": "12.1.5",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -131,14 +131,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "12.1.4",
+      "version": "12.1.5",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
         "com.unity.burst": "1.5.0",
-        "com.unity.render-pipelines.core": "12.1.4",
-        "com.unity.shadergraph": "12.1.4"
+        "com.unity.render-pipelines.core": "12.1.5",
+        "com.unity.shadergraph": "12.1.5"
       }
     },
     "com.unity.searcher": {
@@ -159,13 +159,15 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.mediation": {
-      "version": "file:C:\\Users\\shawn\\Downloads\\3ae23dae5bc314c99229c99c8f809dcbc7962e38.tgz",
+      "version": "0.4.0-preview.2",
       "depth": 0,
-      "source": "local-tarball",
+      "source": "registry",
       "dependencies": {
         "com.unity.settings-manager": "1.0.3",
+        "com.unity.modules.ui": "1.0.0",
         "com.unity.services.core": "1.1.0-pre.11"
-      }
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {
       "version": "1.0.3",
@@ -175,11 +177,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "12.1.4",
+      "version": "12.1.5",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "12.1.4",
+        "com.unity.render-pipelines.core": "12.1.5",
         "com.unity.searcher": "4.9.1"
       }
     },
@@ -214,7 +216,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.6.3",
+      "version": "1.6.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {

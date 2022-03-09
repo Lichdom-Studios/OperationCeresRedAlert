@@ -34,13 +34,15 @@ public class SocialShare : MonoBehaviour
 
     private IEnumerator TakeScreenshotAndShare()
     {
-        yield return new WaitForEndOfFrame();
-
         if (highscoreScreen)
         {
             highscoreText.SetText(PlayerPrefs.GetInt("Highscore", 0).ToString());
             highscoreScreen.SetActive(true);
         }
+
+        yield return new WaitForEndOfFrame();
+
+  
 
         Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);

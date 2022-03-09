@@ -16852,7 +16852,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.25
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -17183,6 +17183,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00789f50971eb064eb66549d2bbb282e, type: 3}
   - {fileID: 8300000, guid: dc2a5e222ebd82042aeadfe812c603e9, type: 3}
   - {fileID: 8300000, guid: 1916334d3cc44ff4c9e8bdf7a4f22aa6, type: 3}
+  - {fileID: 8300000, guid: 59e848417a40439408b07171a584086b, type: 3}
+  - {fileID: 8300000, guid: bacb15acaafd3b244bb641624781c855, type: 3}
+  - {fileID: 8300000, guid: 3f8e6a5a7e2b0da42bc30bac6183577d, type: 3}
+  - {fileID: 8300000, guid: d17a66721d087714d8e5f1b57a170896, type: 3}
 --- !u!1 &882190607
 GameObject:
   m_ObjectHideFlags: 0

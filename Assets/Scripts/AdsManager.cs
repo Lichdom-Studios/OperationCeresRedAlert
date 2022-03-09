@@ -41,7 +41,7 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
 
     async void Start()
     {
-        await UnityServices.InitializeAsync();
+        //await UnityServices.InitializeAsync();
 #if UNITY_ANDROID
         adID = androidID;
         rAd = androidRewarded;
@@ -52,21 +52,50 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
         rAd = iOSRewarded;
         iAd = iOSSkippable;
         bAd = iOSBanner;
+#else
+        return;
 #endif
-        //rewardedAd = MediationService.Instance.CreateRewardedAd(rAd);
+        try
+        {
+            InitializationOptions initializationOptions = new InitializationOptions();
+            initializationOptions.SetGameId(adID);
+            await UnityServices.InitializeAsync(initializationOptions);
+
+            InitializationComplete();
+        }
+        catch (Exception e)
+        {
+            InitializationFailed(e);
+        }
+    }
+
+    public void SetupAd()
+    {
+        //Create
         interstitialAd = MediationService.Instance.CreateInterstitialAd(iAd);
 
-        // Subscribe callback methods to load events:
+        //Subscribe to events
         interstitialAd.OnLoaded += AdLoaded;
         interstitialAd.OnFailedLoad += AdFailedToLoad;
 
-        // Subscribe callback methods to show events:
         interstitialAd.OnShowed += AdShown;
         interstitialAd.OnFailedShow += AdFailedToShow;
         interstitialAd.OnClosed += AdClosed;
+        interstitialAd.OnClicked += AdClicked;
 
-        // Load an ad:
+        // Impression Event
+        MediationService.Instance.ImpressionEventPublisher.OnImpression += ImpressionEvent;
+    }
+
+    void InitializationComplete()
+    {
+        SetupAd();
         interstitialAd.Load();
+    }
+
+    void InitializationFailed(Exception e)
+    {
+        Debug.Log("Initialization Failed: " + e.Message);
     }
 
     // Implement load event callback methods:
@@ -118,6 +147,18 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
         {
 
         }
+    }
+
+    void AdClicked(object sender, EventArgs e)
+    {
+        Debug.Log("Ad has been clicked");
+        // Execute logic after an ad has been clicked.
+    }
+
+    void ImpressionEvent(object sender, ImpressionEventArgs args)
+    {
+        var impressionData = args.ImpressionData != null ? JsonUtility.ToJson(args.ImpressionData, true) : "null";
+        Debug.Log("Impression event from ad unit id " + args.AdUnitId + " " + impressionData);
     }
 
     public void ShowAd()

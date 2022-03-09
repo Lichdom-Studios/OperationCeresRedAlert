@@ -17,9 +17,10 @@ public class LaserBehaviour : MonoBehaviour
     IEnumerator Move()
     {
         float speed = startSpeed + PlayerController.instance.movementSpeed;
+
         while (Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= maxRange)
         {
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward * 100, Time.deltaTime * speed);
 
             yield return null;
         }
