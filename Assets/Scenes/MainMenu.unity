@@ -8234,11 +8234,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   androidID: 4542053
   iOSID: 4542052
-  androidRewarded: Android_Rewarded
-  androidSkippable: Android_Interstitial
+  androidRewarded: Rewarded_Android
+  androidSkippable: Interstitial_Android
   androidBanner: Banner_Android
-  iOSRewarded: iOS_Rewarded
-  iOSSkippable: iOS_Interstitial
+  iOSRewarded: Rewarded_iOS
+  iOSSkippable: Interstitial_iOS
   iOSBanner: Banner_iOS
 --- !u!4 &1958964097
 Transform:

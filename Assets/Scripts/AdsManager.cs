@@ -185,6 +185,12 @@ public class AdsManager : MonoBehaviour//, IUnityAdsInitializationListener, IUni
                 {
                     interstitialAd.Show();
                 }
+                else
+                {
+                    interstitialAd.Load();
+                    if (GameUI.instance)
+                        GameUI.instance.ReturnToMainMenu();
+                }
                 break;
             case AdType.REWARDED:
                 //Advertisement.Load(androidRewarded, this);
