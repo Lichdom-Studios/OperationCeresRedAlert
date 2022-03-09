@@ -111,4 +111,9 @@ public class MainMenu : MonoBehaviour
     {
         Application.OpenURL("fb://page/100214428470829");
     }
+
+    public void OpenDiscord()
+    {
+        Application.OpenURL("https://discord.gg/BdzWSseuFs");
+    }
 }

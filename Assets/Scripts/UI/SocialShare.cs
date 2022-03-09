@@ -7,7 +7,7 @@ using TMPro;
 public class SocialShare : MonoBehaviour
 {
     [SerializeField] string textMessage, advertMessage;
-    [SerializeField] string androidURL = "https://bit.ly/3IONNrX", iOSURL = "";
+    [SerializeField] string androidURL = "https://bit.ly/3IONNrX", iOSURL = "Coming soon!", steamURL = "Coming soon!";
     [SerializeField] GameObject highscoreScreen;
     [SerializeField] TextMeshProUGUI highscoreText;
 
@@ -27,13 +27,16 @@ public class SocialShare : MonoBehaviour
         //if (highscoreScreen)
         //    highscoreScreen.SetActive(false);
         //shareSheet.Show();
-        textMessage = textMessage + " " + PlayerPrefs.GetInt("Highscore").ToString() + " " + advertMessage;
+        
 
         StartCoroutine(TakeScreenshotAndShare());
     }
 
     private IEnumerator TakeScreenshotAndShare()
     {
+
+        string combinedMessage = textMessage + " " + PlayerPrefs.GetInt("Highscore").ToString() + " " + advertMessage + "/n Available on:" + "/n" + "Android: " + androidURL + "/n" + "iOS: " + iOSURL + "/n" + "Steam: " + steamURL;
+
         if (highscoreScreen)
         {
             highscoreText.SetText(PlayerPrefs.GetInt("Highscore", 0).ToString());
@@ -58,7 +61,7 @@ public class SocialShare : MonoBehaviour
             highscoreScreen.SetActive(false);
 
         new NativeShare().AddFile(filePath)
-            .SetSubject("Operation Ceres: Red Alert").SetText(textMessage).SetUrl(androidURL).SetUrl(iOSURL)
+            .SetSubject("Operation Ceres: Red Alert").SetText(combinedMessage)
             .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
             .Share();
     }
