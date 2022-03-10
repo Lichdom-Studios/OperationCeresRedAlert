@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f0cd162b123ed479551344d86ad007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMessage: Check out my personal highscore of
+  textMessage: Check out my highscore of
   advertMessage: 'in Operation Ceres: Red Alert!'
   androidURL: https://bit.ly/3IONNrX
   iOSURL: Coming soon!

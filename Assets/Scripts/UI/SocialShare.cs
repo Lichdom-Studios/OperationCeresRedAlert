@@ -35,7 +35,7 @@ public class SocialShare : MonoBehaviour
     private IEnumerator TakeScreenshotAndShare()
     {
 
-        string combinedMessage = textMessage + " " + PlayerPrefs.GetInt("Highscore").ToString() + " " + advertMessage + "/n Available on:" + "/n" + "Android: " + androidURL + "/n" + "iOS: " + iOSURL + "/n" + "Steam: " + steamURL;
+        string combinedMessage = textMessage + " " + PlayerPrefs.GetInt("Highscore").ToString() + " " + advertMessage + "\n" + "Available on:" + "\n" + "Android: " + androidURL + "\n" + "iOS: " + iOSURL + "\n" + "Steam: " + steamURL;
 
         if (highscoreScreen)
         {
