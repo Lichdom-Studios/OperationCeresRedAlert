@@ -155,22 +155,22 @@ MonoBehaviour:
   pools:
   - tag: Rock1
     prefab: {fileID: 7437889339238721774, guid: a028a9caf7ccf2443a238296ded73a04, type: 3}
-    size: 20
+    size: 75
   - tag: Rock2
     prefab: {fileID: 2746130058158584518, guid: 41059c7f21dd4994d9797364e07a3d45, type: 3}
-    size: 20
+    size: 75
   - tag: Rock3
     prefab: {fileID: 1797448692007430590, guid: 579e809d2465e864795196e5b0545d73, type: 3}
-    size: 20
+    size: 75
   - tag: Rock4
     prefab: {fileID: 5088785953716078452, guid: b31bb4b021ef65f4fbaf7f2d7e56f967, type: 3}
-    size: 20
+    size: 75
   - tag: Rock5
     prefab: {fileID: 1630719386496763137, guid: 1b25ec5b3aa236f49bb4e00c0b8a5efe, type: 3}
-    size: 20
+    size: 75
   - tag: Laser
     prefab: {fileID: 2097540664554418584, guid: a41c51328e1781848b108051f0cb53ae, type: 3}
-    size: 50
+    size: 75
   - tag: PhotonBlast
     prefab: {fileID: 8176242385708249633, guid: fe4203e4e2bae504ab7643d417c5a3ba, type: 3}
     size: 5
