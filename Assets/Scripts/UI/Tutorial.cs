@@ -6,6 +6,7 @@ using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
+    [SerializeField] GameObject tutorialIndicator;
     [SerializeField] Image displayImage;
     [SerializeField] List<Sprite> slides;
     [SerializeField] TextMeshProUGUI displayText;
@@ -19,6 +20,13 @@ public class Tutorial : MonoBehaviour
             displayImage.sprite = slides[0];
         if (texts.Count > 0)
             displayText.SetText(texts[0]);
+
+        if (!PlayerPrefs.HasKey("TutorialComplete"))
+            tutorialIndicator.SetActive(true);
+        //else if(Application.isEditor)
+        //{
+        //    PlayerPrefs.DeleteKey("TutorialComplete");
+        //}    
     }
 
     public void PreviousSlide()
@@ -54,7 +62,11 @@ public class Tutorial : MonoBehaviour
         else if (!nextButton.interactable && currentSlide < slides.Count - 1)
             nextButton.interactable = true;
         else if (nextButton.interactable && currentSlide == slides.Count - 1)
+        {
             nextButton.interactable = false;
+            tutorialIndicator.SetActive(false);
+            PlayerPrefs.SetInt("TutorialComplete", 1);
+        }
 
         displayImage.sprite = slides[currentSlide];
         displayText.SetText(texts[currentSlide]);
