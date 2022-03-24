@@ -27,9 +27,9 @@ public class PhotonBlast : MonoBehaviour
         transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
         animationSequence = DOTween.Sequence().Pause();
-        animationSequence.Insert(0, transform.DOScale(75f, 3f).OnComplete(ResetPhotonBlast));
-        animationSequence.Insert(0, coreMaterial.DOFade(0f, 1.5f));
-        animationSequence.Insert(0, material.DOFade(0f, 3f));
+        animationSequence.Insert(0, transform.DOScale(75f, 3f).SetAutoKill(false));
+        animationSequence.Insert(0, coreMaterial.DOFade(0f, 1.5f).SetAutoKill(false));
+        animationSequence.Insert(0, material.DOFade(0f, 3f).SetAutoKill(false).OnComplete(ResetPhotonBlast));
 
         if (!cameraAnimation)
             cameraAnimation = Camera.main.GetComponent<DOTweenAnimation>();

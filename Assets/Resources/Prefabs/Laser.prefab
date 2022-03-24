@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpeed: 100
-  maxRange: 55
+  maxRange: 100
   points: 3
   photonCharge: 5
 --- !u!54 &-6356006032957097100
