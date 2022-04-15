@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,11 +13,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] QualityControl qualityControl;
     [SerializeField] TextMeshProUGUI highscoreText;
 
-    [SerializeField] GameObject loadingScreen;
-    [SerializeField] TextMeshProUGUI loadingText;
+    [SerializeField] GameObject loadingScreen, loginWindow, usernameWindow;
+    [SerializeField] TextMeshProUGUI loadingText, errorText;
     [SerializeField] Slider loadingBar;
+    [SerializeField] Button loginButton, registerButton;
+    [SerializeField] TMP_InputField usernameInput, passwordInput;
 
     WaitForSeconds loadingTextAnimationTick;
+
+    string username, password;
 
     void Awake()
     {
@@ -53,7 +58,8 @@ public class MainMenu : MonoBehaviour
 
     void UpdateHighscore()
     {
-        highscoreText.SetText(PlayerPrefs.GetInt("Highscore", 0).ToString());
+        //highscoreText.SetText(PlayerPrefs.GetInt("Highscore", 0).ToString());
+        highscoreText.SetText(DataManager.GetHighScore().ToString());
     }
 
     IEnumerator LoadScene()
@@ -115,5 +121,47 @@ public class MainMenu : MonoBehaviour
     public void OpenDiscord()
     {
         Application.OpenURL("https://discord.gg/BdzWSseuFs");
+    }
+
+    public void OpenLoginWindow()
+    {
+        loginWindow.SetActive(true);
+    }
+    public void CloseLoginWindow()
+    {
+        loginWindow.SetActive(false);
+    }
+
+    public void OpenUsernameWindow()
+    {
+        usernameWindow.SetActive(true);
+    }
+
+    public void CloseUsernameWindow()
+    {
+        usernameWindow.SetActive(false);
+        CloseLoginWindow();
+    }
+
+    public void RegisterWithUsername()
+    {
+        PlayfabManager.Instance.RegisterWithUsername(usernameInput.text, passwordInput.text);
+    }
+
+    public void LoginWithUsername()
+    {
+        PlayfabManager.Instance.LoginWithUsername(usernameInput.text, passwordInput.text);
+    }
+
+    public void DisplayErrorMessage(string message)
+    {
+        errorText.SetText(message);
+        errorText.GetComponent<DOTweenAnimation>().DOPlayForward();
+    }
+
+    public void VerifyInputs()
+    {
+        loginButton.interactable = (usernameInput.text.Length >= 4 && passwordInput.text.Length >= 6);
+        registerButton.interactable = (usernameInput.text.Length >= 4 && passwordInput.text.Length >= 6);
     }
 }
